@@ -1,4 +1,4 @@
-from github import Github
+from github_pr import Github
 import os
 
 def post_inline_comment(file, line, message):
