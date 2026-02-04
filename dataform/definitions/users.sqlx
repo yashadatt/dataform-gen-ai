@@ -4,6 +4,9 @@ select
   cast(userId as string)        as userId,
   cast(active as boolean)      as active,
   cast(createdAt as timestamp) as createdAt,
-  cast(birthDate as date)      as birthDate
+  cast(birthDate as date)      as birthDate,
+  cast(isDeleted as boolean) as deletedFlag
+
 from source_users
+
 

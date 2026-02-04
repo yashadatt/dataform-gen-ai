@@ -27,3 +27,23 @@ def validate_column(col, rules):
             errors.append("Timestamp column must end with _timestamp")
 
     return errors
+
+def suggest_column_name(col):
+    name = col.name
+
+    # camelCase / PascalCase → snake_case
+    name = re.sub(r"(.)([A-Z][a-z]+)", r"\1_\2", name)
+    name = re.sub(r"([a-z0-9])([A-Z])", r"\1_\2", name)
+    name = name.lower()
+
+    if col.cast_type == "boolean":
+        if not name.startswith(("is_", "has_", "can_")):
+            name = f"is_{name}"
+
+    if col.cast_type == "date" and not name.endswith("_date"):
+        name = f"{name}_date"
+
+    if col.cast_type == "timestamp" and not name.endswith("_timestamp"):
+        name = f"{name}_timestamp"
+
+    return name
