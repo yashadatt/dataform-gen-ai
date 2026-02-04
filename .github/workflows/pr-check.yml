@@ -1,5 +1,9 @@
 name: Dataform PR Naming Check
 
+permissions:
+  contents: read
+  pull-requests: write
+
 on:
   pull_request:
     branches: [ main ]
