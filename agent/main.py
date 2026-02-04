@@ -22,12 +22,16 @@ for file in files:
 
     for col in parse_sqlx(sql):
         errors = validate_column(col, rules)
-        for err in errors:
+
+        if errors:
             errors_found = True
             suggested = suggest_column_name(col)
 
+            error_text = "\n".join([f"- {e}" for e in errors])
+
             message = (
-                f"❌ **{col.name}**: {err}\n"
+                f"❌ **{col.name}:**\n"
+                f"{error_text}\n\n"
                 f"💡 **Suggested name:** `{suggested}`"
             )
 
