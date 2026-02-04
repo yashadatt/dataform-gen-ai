@@ -2,10 +2,11 @@ import subprocess
 import sys
 from agent.sqlx_parser import parse_sqlx
 from agent.rules import load_rules, validate_column
-from agent.github_pr import post_inline_comment
+from agent.github_pr import post_pr_summary,build_summary
 from agent.rules import suggest_column_name
 
 rules = load_rules()
+violations = {}
 
 files = subprocess.check_output(
     ["git", "diff", "--name-only", "origin/main...HEAD"]
@@ -23,23 +24,25 @@ for file in files:
     for col in parse_sqlx(sql):
         errors = validate_column(col, rules)
 
-        if errors:
-            errors_found = True
-            suggested = suggest_column_name(col)
+        if not errors:
+            continue
 
-            error_text = "\n".join([f"- {e}" for e in errors])
+        # -------- THIS IS WHERE VIOLATIONS ARE ASSIGNED --------
 
-            message = (
-                f"❌ **{col.name}:**\n"
-                f"{error_text}\n\n"
-                f"💡 **Suggested name:** `{suggested}`"
-            )
+        if file not in violations:
+            violations[file] = {}
 
-            post_inline_comment(
-                file=file,
-                line=col.line_no,
-                message=message
-            )
+        violations[file][col.name] = {
+            "line": col.line_no,
+            "errors": errors,
+            "suggested": suggest_column_name(col)
+        }
+
+if violations:
+    summary = build_summary(violations)
+    post_pr_summary(summary)
+    sys.exit(1)
+    errors_found=True
 
 if errors_found:
     print("❌ Naming violations found")
