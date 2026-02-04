@@ -6,7 +6,6 @@ select
   cast(createdAt1 as timestamp) as createdAt,
   cast(birthDate1 as date)      as birthDate,
   cast(isDeleted1 as boolean) as deletedFlag
-
 from source_users
 
 
