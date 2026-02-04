@@ -3,6 +3,7 @@ import sys
 from agent.sqlx_parser import parse_sqlx
 from agent.rules import load_rules, validate_column
 from agent.github_pr import post_inline_comment
+from agent.rules import suggest_column_name
 
 rules = load_rules()
 
@@ -23,10 +24,17 @@ for file in files:
         errors = validate_column(col, rules)
         for err in errors:
             errors_found = True
+            suggested = suggest_column_name(col)
+
+            message = (
+                f"❌ **{col.name}**: {err}\n"
+                f"💡 **Suggested name:** `{suggested}`"
+            )
+
             post_inline_comment(
                 file=file,
                 line=col.line_no,
-                message=f"❌ **{col.name}**: {err}"
+                message=message
             )
 
 if errors_found:
