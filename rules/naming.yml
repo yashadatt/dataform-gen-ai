@@ -1,0 +1,14 @@
+
+snake_case: true
+
+boolean:
+  prefixes: ["is_", "has_", "can_"]
+
+date:
+  suffix: "_date"
+
+timestamp:
+  suffix: "_timestamp"
+
+allow_short_ts: false
+

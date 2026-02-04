@@ -1,0 +1,7 @@
+{
+  "name": "dataform-gen-ai",
+  "dependencies": {
+    "@dataform/core": "3.0.0"
+  }
+}
+

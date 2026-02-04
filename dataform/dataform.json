@@ -1,0 +1,6 @@
+{
+  "warehouse": "bigquery",
+  "defaultDatabase": "analytics",
+  "defaultSchema": "public",
+  "assertionSchema": "assertions"
+}
