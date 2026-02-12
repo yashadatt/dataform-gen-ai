@@ -14,5 +14,6 @@ SELECT
   transaction_datetime,
   is_reversed,
   has_failed,
+  check_BAlance,
   revrsed_datetime     -- typo: reversed
 FROM ${ref("stg_loan_transactions")};
