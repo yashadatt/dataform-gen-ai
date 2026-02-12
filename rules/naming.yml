@@ -12,3 +12,18 @@ timestamp:
 
 allow_short_ts: false
 
+abbreviations:
+  acct: account
+  amt: amount
+  outstd: outstanding
+  cust: customer
+  txn: transaction
+  qty: quantity
+  cnt: count
+  pymnt: payment
+
+forbidden:
+  - tmp
+  - misc
+  - data
+
