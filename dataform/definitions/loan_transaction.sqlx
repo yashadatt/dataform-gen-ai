@@ -1,0 +1,18 @@
+config {
+  type: "incremental",
+  schema: "analytics",
+  name: "loan_transactions",
+  uniqueKey: ["transaction_id"]
+}
+
+SELECT
+  transaction_id,
+  acct_id,
+  loan_acct_id,         -- duplicate meaning with different style
+  txn_amt,              -- txn vs transaction
+  transaction_amount,  -- inconsistent naming in same table
+  transaction_datetime,
+  is_reversed,
+  has_failed,
+  revrsed_datetime     -- typo: reversed
+FROM ${ref("stg_loan_transactions")};
