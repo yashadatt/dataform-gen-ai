@@ -70,7 +70,7 @@ def extract_for_ai(files):
 payload = extract_for_ai(files)
 
 if payload:
-    with open("conventions/naming.yml") as f:
+    with open("../rules/naming.yml") as f:
         conventions = yaml.safe_load(f)
 
     ai_violations = run_ai_review(payload, conventions)
