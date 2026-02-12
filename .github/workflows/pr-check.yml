@@ -24,6 +24,13 @@ jobs:
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: python -m agent.main
 
+      - name: Debug env (safe)
+        run: |
+          python - <<EOF
+          import os
+          print("OPENAI_API_KEY present:", "OPENAI_API_KEY" in os.environ)
+          EOF
+
       - name: Run AI checks
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
