@@ -18,8 +18,15 @@ jobs:
 
       - run: pip install -r requirements.txt
 
-      - name: Run checks
+      - name: Run Deterministic checks
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: python -m agent.main
+
+      - name: Run AI checks
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: python -m agent.main

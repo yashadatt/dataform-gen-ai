@@ -33,6 +33,11 @@ def build_summary(violations):
             lines.append(f"• **{col}**")
             for e in info["errors"]:
                 lines.append(f"  - {e}")
-            lines.append(f"  💡 Suggested: `{info['suggested']}`\n")
+            lines.append(f"  🔒 Deterministic Suggestion: `{info['suggested_deterministic']}`")
+
+            if info.get("suggested_ai") and info["suggested_ai"] != info["suggested_deterministic"]:
+                lines.append(f"  🤖 AI Enhancement Suggestion: `{info['suggested_ai']}`")
+
+            lines.append("")
 
     return "\n".join(lines)
