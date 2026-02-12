@@ -1,0 +1,18 @@
+config {
+  type: "table",
+  schema: "analytics",
+  name: "sales_orders"
+}
+
+select
+  cast(order_id as string) as order_id,
+  cast(customer_id as string) as cust_id,
+  cast(account_id as string) as acct_id,
+  cast(outstanding_amount as numeric) as outstd_amt,     -- short vs long
+  cast(total_amount as numeric) as total_amount,
+  cast(order_time as timestamp) as order_timestamp,
+  cast(is_active as boolean) as is_active,
+  cast(has_discount as boolean) as has_discount,
+  cast(transaction_amount as numeric) as trasaction_amt, -- typo
+  cast(created_at as timestamp) as created_timestamp
+from ${ref("stg_sales_orders")};
